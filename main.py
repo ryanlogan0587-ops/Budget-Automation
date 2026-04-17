@@ -1,4 +1,6 @@
 import os
+import json
+import csv
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -11,9 +13,41 @@ if not api_key:
 
 client = OpenAI(api_key=api_key)
 
+with open("sample-data/example-email.txt", "r") as file:
+    email_text = file.read()
+
 response = client.responses.create(
     model="gpt-4.1-mini",
-    input="Extract the merchant, amount, and date from this transaction alert: You spent $12.50 at Starbucks on April 15."
+    input=f"""
+Extract the transaction details from this email.
+
+Return ONLY valid JSON in this format:
+{{
+  "merchant": "",
+  "amount": 0,
+  "date": "YYYY-MM-DD"
+}}
+
+Email:
+{email_text}
+"""
 )
 
-print(response.output_text)
+output_text = response.output_text.strip()
+
+print("AI output:")
+print(output_text)
+
+cleaned_output = output_text.replace("```json", "").replace("```", "").strip()
+data = json.loads(cleaned_output)
+
+csv_file = "transactions.csv"
+file_exists = os.path.isfile(csv_file)
+
+with open(csv_file, "a", newline="") as file:
+    writer = csv.DictWriter(file, fieldnames=["merchant", "amount", "date"])
+    if not file_exists:
+        writer.writeheader()
+    writer.writerow(data)
+
+print("\nSaved to transactions.csv")
