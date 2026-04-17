@@ -1,29 +1,29 @@
 # Budget Automation (AI-Powered Email Parser)
 
-This project is an AI-powered system that extracts, categorizes, and organizes financial transaction data from email alerts.
+This project is an AI-powered system that extracts and categorizes financial transaction data from email alerts and prepares it for use in an existing budgeting workflow.
 
-It converts unstructured email text into structured data that can be used for budgeting, tracking, and analysis.
+It is designed to turn unstructured transaction emails into structured data that can be mapped into a real budget sheet, reducing manual entry and improving financial organization.
 
 ---
 
 ## Features
 
 * Extracts merchant, amount, and date from transaction emails
-* Classifies transactions into real budgeting categories (Gasto, Factura, etc.)
-* Processes multiple emails automatically
-* Converts unstructured text into structured JSON
-* Saves results into a CSV file for tracking and analysis
+* Classifies transactions into budget-specific sections and categories
+* Processes multiple email inputs automatically
+* Converts unstructured email text into structured JSON
+* Exports cleaned transaction data for integration into an existing budget sheet
 
 ---
 
 ## How It Works
 
-1. Email text is loaded from input files
+1. Transaction email text is loaded from input files
 2. The text is sent to the OpenAI API
-3. AI extracts structured transaction data
-4. The response is cleaned and parsed into JSON
-5. Transactions are categorized based on a predefined budget system
-6. Results are saved into a CSV file
+3. AI extracts the key transaction details
+4. The response is cleaned and parsed into structured JSON
+5. Transactions are mapped into predefined budget sections and categories
+6. The processed data is exported in a format that can be used in a connected budgeting system
 
 ---
 
@@ -31,7 +31,7 @@ It converts unstructured email text into structured data that can be used for bu
 
 ### Input
 
-```
+```text
 Bank of America Alert:
 You spent $23.75 at Chipotle on April 14 using your debit card.
 ```
@@ -55,16 +55,17 @@ You spent $23.75 at Chipotle on April 14 using your debit card.
 * Python
 * OpenAI API
 * python-dotenv
-* CSV (data storage)
-* Make.com (automation layer)
+* CSV export for structured output
+* Make.com for workflow automation
+* Existing custom budget sheet for final organization and tracking
 
 ---
 
 ## Project Purpose
 
-This project demonstrates how AI can be used to transform unstructured financial data into structured, actionable information.
+This project was built to support a real budgeting system by automating one of the most repetitive parts of personal finance tracking: extracting and classifying transaction data from email alerts.
 
-It is part of a larger system that combines automation tools and custom logic to streamline personal finance tracking.
+Rather than replacing the budget sheet, it works alongside it by preparing transaction data so it can be integrated into an already established budgeting structure.
 
 ---
 
@@ -72,18 +73,18 @@ It is part of a larger system that combines automation tools and custom logic to
 
 Working prototype:
 
-* AI extraction and categorization implemented
+* AI extraction implemented
+* Budget category mapping implemented
 * Multi-email processing supported
-* Data export to CSV completed
+* Structured export completed
+* Designed to connect into an existing budget sheet workflow
 
 ---
 
 ## Future Improvements
 
-* Connect directly to Gmail API for real-time processing
-* Integrate with automation workflows (Make.com)
-* Add spending summaries by category
-* Improve categorization accuracy with hybrid rules + AI
-* Build a dashboard for financial insights
-
----
+* Connect directly to real email inbox data
+* Integrate more tightly with the budget sheet
+* Improve category accuracy with hybrid AI + rule-based logic
+* Add summaries by category and section
+* Expand support for more transaction formats and merchants
