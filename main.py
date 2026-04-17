@@ -13,12 +13,26 @@ if not api_key:
 
 client = OpenAI(api_key=api_key)
 
-with open("sample-data/example-email.txt", "r") as file:
-    email_text = file.read()
+sample_folder = "sample-data"
+csv_file = "transactions.csv"
+file_exists = os.path.isfile(csv_file)
 
-response = client.responses.create(
-    model="gpt-4.1-mini",
-    input=f"""
+with open(csv_file, "a", newline="") as file:
+    writer = csv.DictWriter(file, fieldnames=["merchant", "amount", "date"])
+
+    if not file_exists:
+        writer.writeheader()
+
+    for filename in os.listdir(sample_folder):
+        if filename.endswith(".txt"):
+            file_path = os.path.join(sample_folder, filename)
+
+            with open(file_path, "r") as email_file:
+                email_text = email_file.read()
+
+            response = client.responses.create(
+                model="gpt-4.1-mini",
+                input=f"""
 Extract the transaction details from this email.
 
 Return ONLY valid JSON in this format:
@@ -31,23 +45,14 @@ Return ONLY valid JSON in this format:
 Email:
 {email_text}
 """
-)
+            )
 
-output_text = response.output_text.strip()
+            output_text = response.output_text.strip()
+            cleaned_output = output_text.replace("```json", "").replace("```", "").strip()
+            data = json.loads(cleaned_output)
 
-print("AI output:")
-print(output_text)
+            writer.writerow(data)
 
-cleaned_output = output_text.replace("```json", "").replace("```", "").strip()
-data = json.loads(cleaned_output)
+            print(f"Processed {filename}: {data}")
 
-csv_file = "transactions.csv"
-file_exists = os.path.isfile(csv_file)
-
-with open(csv_file, "a", newline="") as file:
-    writer = csv.DictWriter(file, fieldnames=["merchant", "amount", "date"])
-    if not file_exists:
-        writer.writeheader()
-    writer.writerow(data)
-
-print("\nSaved to transactions.csv")
+print("\nSaved all transactions to transactions.csv")
