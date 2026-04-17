@@ -1,90 +1,93 @@
-# Budget Automation (AI-Powered Email Parser)
+# AI Budget Automation (Make + AI)
 
-This project is an AI-powered system that extracts and categorizes financial transaction data from email alerts and prepares it for use in an existing budgeting workflow.
+This project is an automated system that processes Bank of America transaction emails and organizes them into a structured budgeting workflow.
 
-It is designed to turn unstructured transaction emails into structured data that can be mapped into a real budget sheet, reducing manual entry and improving financial organization.
+It uses Make to handle automation and AI to extract and categorize financial data, reducing the need for manual tracking.
+
+---
+
+## Overview
+
+The system takes unstructured email alerts and converts them into structured, categorized transactions that can be used in a budgeting system.
+
+---
+
+## Workflow
+
+```
+Bank of America Email → Make → AI Processing → Categorized Transaction → Budget Sheet
+```
+
+---
+
+## System Components
+
+* **Gmail** – Detects incoming transaction emails
+* **Make** – Handles automation and workflow execution
+* **AI (OpenAI)** – Extracts and categorizes transaction data
+* **Budget Sheet** – Stores structured financial data
+
+---
+
+## Screenshots
+
+### Make Scenario
+
+![Make Workflow](screenshots/make-workflow.png)
+
+### Gmail Filter
+
+![Gmail Filter](screenshots/gmail-filter.png)
+
+### Example Email
+
+![Example Email](screenshots/example-email.png)
+
+### Output (Budget Sheet)
+
+![Output Sheet](screenshots/output-sheet.png)
 
 ---
 
 ## Features
 
-* Extracts merchant, amount, and date from transaction emails
-* Classifies transactions into budget-specific sections and categories
-* Processes multiple email inputs automatically
-* Converts unstructured email text into structured JSON
-* Exports cleaned transaction data for integration into an existing budget sheet
-
----
-
-## How It Works
-
-1. Transaction email text is loaded from input files
-2. The text is sent to the OpenAI API
-3. AI extracts the key transaction details
-4. The response is cleaned and parsed into structured JSON
-5. Transactions are mapped into predefined budget sections and categories
-6. The processed data is exported in a format that can be used in a connected budgeting system
+* Automatically detects transaction emails
+* Extracts merchant, amount, and date
+* Classifies transactions into budget categories
+* Reduces manual data entry
+* Integrates with an existing budgeting system
 
 ---
 
 ## Example
 
-### Input
+**Input (Email):**
 
-```text
-Bank of America Alert:
-You spent $23.75 at Chipotle on April 14 using your debit card.
+```
+You spent $23.75 at Chipotle on April 14.
 ```
 
-### Output
+**Output:**
 
-```json
-{
-  "merchant": "Chipotle",
-  "amount": 23.75,
-  "date": "2024-04-14",
-  "section": "Gasto",
-  "category": "Comida/Bebida"
-}
+```
+Merchant: Chipotle  
+Amount: $23.75  
+Date: 2024-04-14  
+Section: Gasto  
+Category: Comida/Bebida  
 ```
 
 ---
 
-## Tech Stack
+## Purpose
 
-* Python
-* OpenAI API
-* python-dotenv
-* CSV export for structured output
-* Make.com for workflow automation
-* Existing custom budget sheet for final organization and tracking
-
----
-
-## Project Purpose
-
-This project was built to support a real budgeting system by automating one of the most repetitive parts of personal finance tracking: extracting and classifying transaction data from email alerts.
-
-Rather than replacing the budget sheet, it works alongside it by preparing transaction data so it can be integrated into an already established budgeting structure.
-
----
-
-## Current Status
-
-Working prototype:
-
-* AI extraction implemented
-* Budget category mapping implemented
-* Multi-email processing supported
-* Structured export completed
-* Designed to connect into an existing budget sheet workflow
+This project demonstrates how automation and AI can be combined to streamline financial workflows and reduce repetitive tasks in personal budgeting.
 
 ---
 
 ## Future Improvements
 
-* Connect directly to real email inbox data
-* Integrate more tightly with the budget sheet
-* Improve category accuracy with hybrid AI + rule-based logic
-* Add summaries by category and section
-* Expand support for more transaction formats and merchants
+* Real-time integration with budget sheet
+* Improved categorization accuracy
+* Expanded support for different transaction formats
+* Deeper analytics and spending insights
