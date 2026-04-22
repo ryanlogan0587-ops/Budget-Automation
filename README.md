@@ -43,9 +43,19 @@ Bank of America Email → Make → AI Processing → Categorized Transaction →
 
 ![Example Email](screenshots/example-email.png)
 
-### Output (Budget Sheet)
+### Output (Budget Sheets)
 
-![Output Sheet](screenshots/output-sheet.png)
+#### Budget Overview
+
+![Budget Overview](screenshots/budget-overview.png)
+
+#### Transactions Overview
+
+![Transactions Overview](screenshots/transactions-overview.png)
+
+#### Categories Overview
+
+![Categories Overview](screenshots/categories-overview.png)
 
 ---
 
